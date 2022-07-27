@@ -1,0 +1,116 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Patients",
+        "description": "API for patient registration",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/patient": {
+            "post": {
+                "sumary": "cadastro de pacientes",
+                "tags": [
+                    "Patients"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Patient"
+                            },
+                            "examples": {
+                                "patient": {
+                                    "value": {
+                                        "name": "Matilde Fernandes Goncalves",
+                                        "healthInsuranceCardId": "123456789",
+                                        "address": "Rua Luís de Castro, 1182",
+                                        "createdAt": "2022-05-05"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "500": {
+                    "description": "error"
+                },
+                "422": {
+                    "description": "Campo obrigatório"
+                },
+                "201": {
+                    "description": "Paciente inserido no sistema com sucesso"
+               
+                },
+                "200":{
+                    "description": "ok",
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type":"object",
+                                    "$ref":"#/components/schemas/Patient"
+                                
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        },"/pacient/{id}":{
+            "get":{
+                "description":"Busca paciente pelo id",
+                "tags":["Patient"],
+                "parameters":[
+                    {
+                        "name":"id",
+                        "in":"path",
+                        "description":"Nome do paciente pelo ID",
+                        "required":true
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"ok",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/Patient"
+                                }
+                            }
+                        }
+                    },   "422": {
+                        "description": "Campo obrigatório"
+                    }
+
+                }
+            }
+           
+        }
+
+
+
+    },
+    "components": {
+        "schemas": {
+            "Patient": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "healthInsuranceCardId": {
+                        "type": "number"
+                    },
+                    "address": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
